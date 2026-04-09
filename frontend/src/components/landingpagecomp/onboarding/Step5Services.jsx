@@ -1,74 +1,100 @@
-// Step3Professional.jsx
-import Accordion from "./Accordion";
-import ChipSelect from "./ChipSelect";
+// Step5Services.jsx
 import { useState } from "react";
+import ChipSelect from "./ChipSelect";
+import Toggle from "./ToggleSwitch";
+import Accordion from "./Accordion";
 
-export default function Step3() {
-  const [days, setDays] = useState([]);
+export default function Step5() {
+  const [services, setServices] = useState([]);
+  const [urgent, setUrgent] = useState(true);
+  const [travel, setTravel] = useState(false);
+  const [cancel, setCancel] = useState(false);
+  const [commission, setCommission] = useState(false);
 
-  const weekDays = [
-    "Monday","Tuesday","Wednesday",
-    "Thursday","Friday","Saturday","Sunday"
+  const options = [
+    "Wedding", "Pre-Wedding", "Engagement",
+    "Birthday", "Corporate Event",
+    "Product Shoot", "Fashion Shoot", "Real Estate"
   ];
 
   return (
     <div>
       <h2 className="text-xl text-white mb-2">
-        Build Your Professional Profile
+        Professional Services
       </h2>
 
       <p className="text-white/50 mb-6">
-        This information will be visible to customers.
+        Configure your services and booking preferences.
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
 
-        <Accordion title="Work Information">
-          <select className="w-full input mb-4">
-            <option>Years of Experience</option>
-            <option>1 Year</option>
-            <option>2 Years</option>
+        {/* CATEGORY */}
+        <div>
+          <label className="text-white/60 text-sm mb-2 block">
+            Service Category
+          </label>
+          <select className="w-full input">
+            <option>Photo and Videography</option>
+            <option>DJ</option>
+            <option>Musician</option>
           </select>
+        </div>
 
-          <p className="text-white/60 mb-2">Available Working Days</p>
-          <ChipSelect options={weekDays} selected={days} setSelected={setDays} />
-
-          <textarea
-            placeholder="Tell customers about yourself..."
-            className="w-full input mt-4"
+        {/* SPECIALITY */}
+        <div>
+          <label className="text-white/60 text-sm mb-2 block">
+            Speciality
+          </label>
+          <ChipSelect
+            options={options}
+            selected={services}
+            setSelected={setServices}
           />
-        </Accordion>
+        </div>
 
-        <Accordion title="Working Locations">
-          <select className="w-full input mb-3">
-            <option>Select state</option>
-          </select>
+        {/* TOGGLES */}
+        <div className="space-y-4">
 
-          <select className="w-full input mb-3">
-            <option>Select city</option>
-          </select>
-
-          <div className="flex gap-3">
-            <button className="btn-light">Save Location</button>
-            <button className="btn-light">Add More</button>
+          <div className="flex justify-between items-center">
+            <span className="text-white/70">
+              Available for urgent bookings
+            </span>
+            <Toggle enabled={urgent} setEnabled={setUrgent} />
           </div>
-        </Accordion>
 
-        <Accordion title="Profile & Online Presence">
-          <input
-            placeholder="Instagram Profile URL"
-            className="w-full input mb-3"
-          />
-          <input
-            placeholder="Website URL (optional)"
-            className="w-full input"
-          />
-        </Accordion>
+          <div className="flex justify-between items-center">
+            <span className="text-white/70">
+              Willing to travel
+            </span>
+            <Toggle enabled={travel} setEnabled={setTravel} />
+          </div>
 
-        <Accordion title="Additional Details">
-          <input placeholder="Company/Brand Name" className="w-full input mb-3"/>
-          <input placeholder="Past Client Experience" className="w-full input mb-3"/>
-          <input placeholder="Awards & Achievements" className="w-full input"/>
+          <div className="flex justify-between items-center">
+            <span className="text-white/70">
+              Cancellation Policy Enabled
+            </span>
+            <Toggle enabled={cancel} setEnabled={setCancel} />
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-white/70">
+              Accept Platform Commission
+            </span>
+            <Toggle enabled={commission} setEnabled={setCommission} />
+          </div>
+
+        </div>
+
+        {/* BANK DETAILS */}
+        <Accordion title="Bank Information">
+          <div className="space-y-4">
+            <input placeholder="Account Number" className="w-full input" />
+            <input placeholder="IFSC Code" className="w-full input" />
+            <input placeholder="Bank Name" className="w-full input" />
+            <input placeholder="Branch Name" className="w-full input" />
+            <input placeholder="UPI ID (Optional)" className="w-full input" />
+          </div>
         </Accordion>
 
       </div>

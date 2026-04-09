@@ -1,75 +1,73 @@
-// Step3Professional.jsx
+// Step4Legal.jsx
 import Accordion from "./Accordion";
-import ChipSelect from "./ChipSelect";
-import { useState } from "react";
 
-export default function Step3() {
-  const [days, setDays] = useState([]);
+const UploadBox = ({ label }) => (
+  <div className="border border-dashed border-white/20 rounded-xl p-6 text-center bg-white/5">
+    <p className="text-white/70 text-sm mb-1">{label}</p>
+    <p className="text-white/40 text-xs">PDF, JPG, PNG (Max 5MB)</p>
+  </div>
+);
 
-  const weekDays = [
-    "Monday","Tuesday","Wednesday",
-    "Thursday","Friday","Saturday","Sunday"
-  ];
-
+export default function Step4() {
   return (
     <div>
       <h2 className="text-xl text-white mb-2">
-        Build Your Professional Profile
+        Legal & Identity Verification
       </h2>
 
       <p className="text-white/50 mb-6">
-        This information will be visible to customers.
+        Your profile will go live only after admin approval.
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
 
-        <Accordion title="Work Information">
-          <select className="w-full input mb-4">
-            <option>Years of Experience</option>
-            <option>1 Year</option>
-            <option>2 Years</option>
-          </select>
+        {/* SECURITY INFO */}
+        <div className="p-4 rounded-xl bg-purple-500/10 border border-purple-400/20">
+          <p className="text-purple-300 font-medium text-sm">
+            Secured & Confidential
+          </p>
+          <p className="text-white/50 text-sm mt-1">
+            Your documents are encrypted and securely stored.
+          </p>
+        </div>
 
-          <p className="text-white/60 mb-2">Available Working Days</p>
-          <ChipSelect options={weekDays} selected={days} setSelected={setDays} />
+        {/* AADHAAR */}
+        <Accordion title="Aadhaar Verification">
+        <label className="block text-white/60  mb-2">Aadhaar Number</label>
+          <div className="space-y-4">
+            <input
+              placeholder="Enter Aadhaar Number"
+              className="w-full input"
+            />
+                    <label className="block text-white/60   mb-2">Upload Aadhaar Card</label>
 
-          <textarea
-            placeholder="Tell customers about yourself..."
-            className="w-full input mt-4"
-          />
-        </Accordion>
-
-        <Accordion title="Working Locations">
-          <select className="w-full input mb-3">
-            <option>Select state</option>
-          </select>
-
-          <select className="w-full input mb-3">
-            <option>Select city</option>
-          </select>
-
-          <div className="flex gap-3">
-            <button className="btn-light">Save Location</button>
-            <button className="btn-light">Add More</button>
+            <UploadBox label="Upload Aadhaar Front / PDF" />
           </div>
         </Accordion>
 
-        <Accordion title="Profile & Online Presence">
-          <input
-            placeholder="Instagram Profile URL"
-            className="w-full input mb-3"
-          />
-          <input
-            placeholder="Website URL (optional)"
-            className="w-full input"
-          />
+        {/* PAN */}
+        <Accordion title="PAN Verification">
+                    <label className="block text-white/60  mb-2">PAN Number</label>
+
+          <div className="space-y-4">
+            <input
+              placeholder="Enter PAN Number"
+              className="w-full input"
+            />
+                                <label className="block text-white/60   mb-2">Upload PAN Card</label>
+            <UploadBox label="Upload PAN Card / PDF" />
+          </div>
         </Accordion>
 
-        <Accordion title="Additional Details">
-          <input placeholder="Company/Brand Name" className="w-full input mb-3"/>
-          <input placeholder="Past Client Experience" className="w-full input mb-3"/>
-          <input placeholder="Awards & Achievements" className="w-full input"/>
-        </Accordion>
+        {/* STATUS CARD */}
+        <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-400/20">
+          <p className="text-yellow-300 font-medium text-sm">
+            Verification Required
+          </p>
+          <p className="text-white/50 text-sm mt-1">
+            Documents will be reviewed within 24–48 hours.
+          </p>
+        </div>
 
       </div>
     </div>
