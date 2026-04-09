@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { Star } from "lucide-react";
 
 const testimonials = [
@@ -22,7 +23,20 @@ const testimonials = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
 const Testimonials = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.3 });
+
   return (
     <section className="relative py-28 px-6 overflow-hidden bg-[#0b0120]">
 
@@ -32,18 +46,30 @@ const Testimonials = () => {
       <div className="relative max-w-7xl mx-auto">
 
         {/* HEADING */}
-        <h2 className="text-center text-4xl md:text-5xl font-semibold 
+        <motion.h2
+          className="text-center text-4xl md:text-5xl font-semibold 
           bg-gradient-to-b from-white to-purple-200 
-          bg-clip-text text-transparent mb-20">
+          bg-clip-text text-transparent mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           What the Community Says
-        </h2>
+        </motion.h2>
 
         {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid md:grid-cols-3 gap-8 items-center"
+        >
 
           {testimonials.map((item, i) => (
             <motion.div
               key={i}
+              variants={itemVariants}
               whileHover={{ y: -6 }}
               className={`
                 relative group
@@ -96,7 +122,7 @@ const Testimonials = () => {
               <div className="absolute inset-0 rounded-3xl bg-purple-500/5 opacity-0 group-hover:opacity-100 transition" />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

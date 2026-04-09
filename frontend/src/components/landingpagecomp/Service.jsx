@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { Camera, Music, Mic2, Heart, User, Sparkles } from "lucide-react";
 
 const services = [
@@ -40,9 +41,22 @@ const services = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
+};
+
 const Service = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.1 });
+
   return (
-    <section className="bg-[#0b0120] py-24 px-6 relative overflow-hidden">
+    <section className="bg-[#100528] py-24 px-6 relative overflow-hidden">
 
       {/* Background subtle gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0b0120] via-[#14022e] to-[#1a0033]" />
@@ -50,7 +64,12 @@ const Service = () => {
       <div className="relative max-w-7xl mx-auto">
 
         {/* TOP TEXT */}
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+        >
           <p className="text-purple-400 text-xs tracking-[0.3em] mb-4">
             THE EXHIBITION
           </p>
@@ -58,14 +77,21 @@ const Service = () => {
           <h2 className="text-4xl md:text-5xl font-semibold text-white">
             Curated Professional Services
           </h2>
-        </div>
+        </motion.div>
 
         {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid md:grid-cols-3 gap-8"
+        >
           {services.map((service, i) => (
             <motion.div
               key={i}
-              whileHover={{ y: -8 }}
+              variants={cardVariants}
+              whileHover={{ y: -6 }}
               className="
                 group
                 rounded-3xl p-6
@@ -112,7 +138,7 @@ const Service = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

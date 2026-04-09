@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const steps = [
   {
@@ -18,7 +19,20 @@ const steps = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
 const HowItWorks = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.3 });
+
   return (
     <section className="relative py-28 px-6 overflow-hidden bg-[#0b0120]">
 
@@ -31,7 +45,12 @@ const HowItWorks = () => {
       <div className="relative max-w-7xl mx-auto">
 
         {/* HEADING */}
-        <div className="text-center mb-20">
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <h2 className="text-4xl md:text-5xl font-semibold 
             bg-gradient-to-b from-white to-purple-200 
             bg-clip-text text-transparent">
@@ -41,10 +60,16 @@ const HowItWorks = () => {
           <p className="text-white/60 mt-4">
             Three simple steps to elevate your next gathering.
           </p>
-        </div>
+        </motion.div>
 
         {/* STEPS */}
-        <div className="relative grid md:grid-cols-3 gap-10 items-center">
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="relative grid md:grid-cols-3 gap-10 items-center"
+        >
 
           {/* CONNECTOR LINE */}
           <div className="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
@@ -52,6 +77,7 @@ const HowItWorks = () => {
           {steps.map((step, i) => (
            <motion.div
   key={i}
+  variants={itemVariants}
   whileHover={{ y: -6 }}
   className={`
     relative z-10 group
@@ -91,7 +117,7 @@ const HowItWorks = () => {
               <div className="absolute inset-0 rounded-3xl bg-purple-500/5 opacity-0 group-hover:opacity-100 transition" />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

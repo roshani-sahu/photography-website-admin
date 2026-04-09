@@ -2,7 +2,7 @@ import { CheckCircle, Star, CreditCard, Image, Wallet, TrendingUp } from "lucide
 
 const ForVisionaries = () => {
   return (
-    <section className="bg-[#0b0120] py-28 px-6 relative overflow-hidden">
+    <section className="bg-[#100528] py-28 px-6 relative overflow-hidden">
 
       {/* Background gradient */}
       {/* <div className="absolute inset-0 bg-gradient-to-br from-[#0b0120] via-[#14022e] to-[#1a0033]" /> */}
