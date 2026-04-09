@@ -7,13 +7,13 @@ const services = [
     title: "Photography & Videography",
     desc: "Professional Photo and video Coverage",
     icon: <Camera size={20} />,
-    img: "/Photo.png",
+    img: "/Photo.jpeg",
   },
   {
     title: "Music & Live Performance",
     desc: "Professional Photo and video Coverage",
     icon: <Music size={20} />,
-    img: "/Music.png",
+    img: "/DJ.jpeg",
   },
   {
     title: "Professional DJ Services",
@@ -127,7 +127,7 @@ const Service = () => {
                   src={service.img}
                   alt={service.title}
                   className="
-                    w-full h-[200px] object-cover rounded-xl
+                    w-full h-[300px] object-cover rounded-xl
                     transition-transform duration-500 ease-out
                     group-hover:scale-110
                   "
