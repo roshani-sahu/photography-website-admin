@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Accordion from "./Accordion";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, X, UploadCloud, FileText } from "lucide-react";
 
 const eventOptions = [
-  "Wedding","Pre-Wedding","Engagement","Birthday",
-  "Corporate Event","Product Shoot","Fashion Shoot","Real Estate Shoot"
+  "Wedding", "Pre-Wedding", "Engagement", "Birthday",
+  "Corporate Event", "Product Shoot", "Fashion Shoot", "Real Estate Shoot"
 ];
 
 const serviceTypes = [
@@ -27,12 +27,107 @@ const teamSizes = [
   "10+ Members",
 ];
 
-export default function Step5Services() {
+const stateCities = {
+  "Madhya Pradesh": ["Indore", "Bhopal", "Gwalior", "Jabalpur", "Ujjain"],
+  "Uttar Pradesh": ["Lucknow", "Kanpur", "Agra", "Varanasi", "Noida"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"],
+  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Saket", "Lajpat Nagar"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+};
+
+function LocationBlock({ index, onSave, onRemove }) {
+  const [state, setState] = useState("");
+  const [selectedCities, setSelectedCities] = useState([]);
+  const [cityDropOpen, setCityDropOpen] = useState(false);
+
+  const cities = stateCities[state] || [];
+
+  const toggleCity = (city) =>
+    setSelectedCities((prev) =>
+      prev.includes(city) ? prev.filter((c) => c !== city) : [...prev, city]
+    );
+
+  const handleSave = () => {
+    if (state && selectedCities.length) onSave({ state, cities: selectedCities });
+  };
+
+  return (
+    <div className="border border-white/10 rounded-xl p-4 space-y-3 relative">
+      {index > 0 && (
+        <button onClick={onRemove} className="absolute top-3 right-3 text-white/40 hover:text-white">
+          <X size={14} />
+        </button>
+      )}
+
+      <div>
+        <label className="block text-white/60 mb-2">State</label>
+        <select
+          className="w-full input"
+          value={state}
+          onChange={(e) => { setState(e.target.value); setSelectedCities([]); }}
+        >
+          <option className="text-black" value="">Select state</option>
+          {Object.keys(stateCities).map((s) => (
+            <option key={s} className="text-black">{s}</option>
+          ))}
+        </select>
+      </div>
+
+      {state && (
+        <div className="relative">
+          <label className="block text-white/60 mb-2">City</label>
+          <div
+            onClick={() => setCityDropOpen(!cityDropOpen)}
+            className="input flex justify-between cursor-pointer"
+          >
+            <span className="text-white/50">
+              {selectedCities.length ? `${selectedCities.length} selected` : "Select cities"}
+            </span>
+            <span className="text-white/40 text-xs">▾</span>
+          </div>
+
+          {cityDropOpen && (
+            <div className="absolute z-20 mt-1 w-full bg-[#1c1530] border border-white/10 rounded-xl p-2 max-h-40 overflow-y-auto scrollbar-hide">
+              {cities.map((city) => (
+                <div
+                  key={city}
+                  onClick={() => toggleCity(city)}
+                  className={`px-3 py-2 rounded-lg cursor-pointer text-sm mb-1 ${
+                    selectedCities.includes(city)
+                      ? "bg-purple-600 text-white"
+                      : "text-white/70 hover:bg-white/10"
+                  }`}
+                >
+                  {city}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {selectedCities.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {selectedCities.map((city) => (
+                <span key={city} className="chip flex items-center gap-1">
+                  {city}
+                  <X size={12} className="cursor-pointer" onClick={() => toggleCity(city)} />
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <button onClick={handleSave} className="btn-light mt-1">Save Location</button>
+    </div>
+  );
+}
+
+export default function Step5Services({ registerValidate }) {
   const [form, setForm] = useState({
-    serviceType: "Photo and Videography Services",
+    serviceType: "",
     events: [],
     isFullTime: true,
-    teamSize: "1-5 Members",
+    teamSize: "",
     cameras: "",
     lenses: "",
     lighting: "",
@@ -46,13 +141,26 @@ export default function Step5Services() {
     agreement: false,
   });
 
+  const [blocks, setBlocks] = useState([0]);
+  const [savedLocations, setSavedLocations] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [serviceDropdownOpen, setServiceDropdownOpen] = useState(false);
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false);
+  const [passbookFile, setPassbookFile] = useState(null);
+  const passbookRef = useRef(null);
 
-  const [state, setState] = useState("");
-  const [cities, setCities] = useState([]);
-  const [savedLocations, setSavedLocations] = useState([]);
+  useEffect(() => {
+    registerValidate(() => {
+      if (!form.serviceType) return "Please select a service type.";
+      if (!form.events.length) return "Select at least one event type.";
+      if (!form.teamSize) return "Please select your team size.";
+      if (!form.cameras.trim()) return "Please enter your camera equipment.";
+      if (!form.editing.trim()) return "Please enter your editing software.";
+      if (!form.hourlyPrice.trim()) return "Hourly price is required.";
+      if (!form.packagePrice.trim()) return "Package price is required.";
+      return null;
+    });
+  }, [form]);
 
   const toggleEvent = (item) => {
     setForm((prev) => ({
@@ -63,13 +171,16 @@ export default function Step5Services() {
     }));
   };
 
-  const addLocation = () => {
-    if (state && cities.length) {
-      setSavedLocations([...savedLocations, { state, cities }]);
-      setState("");
-      setCities([]);
-    }
+  const handleSaveLocation = (data) => {
+    setSavedLocations((prev) => {
+      const idx = prev.findIndex((l) => l.state === data.state);
+      if (idx >= 0) { const u = [...prev]; u[idx] = data; return u; }
+      return [...prev, data];
+    });
   };
+
+  const addBlock = () => setBlocks((prev) => [...prev, prev.length]);
+  const removeBlock = (i) => setBlocks((prev) => prev.filter((_, idx) => idx !== i));
 
   return (
     <div className="space-y-6">
@@ -81,7 +192,7 @@ export default function Step5Services() {
           onClick={() => { setServiceDropdownOpen(!serviceDropdownOpen); setTeamDropdownOpen(false); setDropdownOpen(false); }}
           className="input flex justify-between cursor-pointer"
         >
-          {form.serviceType}
+          {form.serviceType || <span className="text-white/40">Select service type</span>}
           <ChevronDown size={16} />
         </div>
         {serviceDropdownOpen && (
@@ -101,18 +212,16 @@ export default function Step5Services() {
         )}
       </div>
 
-      {/* MULTI SELECT (FIXED INSIDE BOX) */}
+      {/* EVENT TYPE */}
       <div className="relative">
         <label className="label">Speciality or Event type</label>
-
         <div
           onClick={() => { setDropdownOpen(!dropdownOpen); setServiceDropdownOpen(false); setTeamDropdownOpen(false); }}
           className="input flex justify-between cursor-pointer"
         >
-          Select Events
+          <span className="text-white/40">Select Events</span>
           <ChevronDown size={16} />
         </div>
-
         {dropdownOpen && (
           <div className="absolute z-20 mt-2 w-full scrollbar-hide bg-[#1c1530] border border-white/10 rounded-xl p-3 max-h-48 overflow-y-auto">
             {eventOptions.map((item) => (
@@ -120,9 +229,7 @@ export default function Step5Services() {
                 key={item}
                 onClick={() => toggleEvent(item)}
                 className={`px-3 py-2 rounded-lg cursor-pointer text-sm mb-1 ${
-                  form.events.includes(item)
-                    ? "bg-purple-600 text-white"
-                    : "hover:bg-white/10 text-white"
+                  form.events.includes(item) ? "bg-purple-600 text-white" : "hover:bg-white/10 text-white"
                 }`}
               >
                 {item}
@@ -130,8 +237,6 @@ export default function Step5Services() {
             ))}
           </div>
         )}
-
-        {/* CHIPS */}
         <div className="flex flex-wrap text-white gap-2 mt-3">
           {form.events.map((item) => (
             <div key={item} className="chip">
@@ -144,18 +249,14 @@ export default function Step5Services() {
 
       {/* RADIO */}
       <div>
-        <label className="label ">
-          Are you a full-time professional or a freelancer?
-        </label>
+        <label className="label">Are you a full-time professional or a freelancer?</label>
         <div className="flex text-white text-lg gap-6">
           <label className="flex gap-2">
-            <input type="radio" checked={form.isFullTime}
-              onChange={() => setForm({...form, isFullTime:true})}/>
+            <input type="radio" checked={form.isFullTime} onChange={() => setForm({ ...form, isFullTime: true })} />
             Full-Time
           </label>
           <label className="flex gap-2">
-            <input type="radio" checked={!form.isFullTime}
-              onChange={() => setForm({...form, isFullTime:false})}/>
+            <input type="radio" checked={!form.isFullTime} onChange={() => setForm({ ...form, isFullTime: false })} />
             Freelancer
           </label>
         </div>
@@ -168,7 +269,7 @@ export default function Step5Services() {
           onClick={() => { setTeamDropdownOpen(!teamDropdownOpen); setServiceDropdownOpen(false); setDropdownOpen(false); }}
           className="input flex justify-between cursor-pointer"
         >
-          {form.teamSize}
+          {form.teamSize || <span className="text-white/40">Select team size</span>}
           <ChevronDown size={16} />
         </div>
         {teamDropdownOpen && (
@@ -201,7 +302,7 @@ export default function Step5Services() {
           <textarea
             className="input"
             value={form[item.key]}
-            onChange={(e)=>setForm({...form,[item.key]:e.target.value})}
+            onChange={(e) => setForm({ ...form, [item.key]: e.target.value })}
           />
         </div>
       ))}
@@ -209,70 +310,82 @@ export default function Step5Services() {
       {/* PRICING */}
       <div>
         <label className="label">Hourly Price</label>
-        <input className="input" placeholder="Enter hourly price"
-          value={form.hourlyPrice}
-          onChange={(e)=>setForm({...form, hourlyPrice:e.target.value})}/>
+        <input className="input" placeholder="Enter hourly price" value={form.hourlyPrice} onChange={(e) => setForm({ ...form, hourlyPrice: e.target.value })} />
       </div>
-
       <div>
         <label className="label">Package Price</label>
-        <input className="input" placeholder="Enter package price"
-          value={form.packagePrice}
-          onChange={(e)=>setForm({...form, packagePrice:e.target.value})}/>
+        <input className="input" placeholder="Enter package price" value={form.packagePrice} onChange={(e) => setForm({ ...form, packagePrice: e.target.value })} />
       </div>
 
       {/* TOGGLES */}
-      <Toggle label="Available for urgent bookings" value={form.urgent}
-        onChange={(v)=>setForm({...form, urgent:v})}/>
-      <Toggle label="Willing to travel outside city" value={form.travel}
-        onChange={(v)=>setForm({...form, travel:v})}/>
+      <Toggle label="Available for urgent bookings" value={form.urgent} onChange={(v) => setForm({ ...form, urgent: v })} />
+      <Toggle label="Willing to travel outside city" value={form.travel} onChange={(v) => setForm({ ...form, travel: v })} />
 
-      {/* CONDITIONAL ACCORDION */}
+      {/* SECONDARY LOCATION */}
       {form.travel && (
         <Accordion title="Secondary Working Location">
-
-          <select value={state} onChange={(e)=>setState(e.target.value)} className="input mb-3">
-            <option>Select State</option>
-            <option>Madhya Pradesh</option>
-            <option>Delhi</option>
-          </select>
-
-          <div className="flex flex-wrap gap-2 mb-3">
-            {["Indore","Bhopal","Delhi","Mumbai"].map((c)=>(
-              <div key={c}
-                onClick={()=>setCities(prev=>prev.includes(c)?prev.filter(i=>i!==c):[...prev,c])}
-                className={`chip-select ${cities.includes(c) && "active"}`}>
-                {c}
-              </div>
+          <div className="space-y-4">
+            {blocks.map((_, i) => (
+              <LocationBlock key={i} index={i} onSave={handleSaveLocation} onRemove={() => removeBlock(i)} />
             ))}
+
+            <button onClick={addBlock} className="btn-light w-full">+ Add More Location</button>
+
+            {savedLocations.length > 0 && (
+              <div className="mt-3 space-y-2">
+                <p className="text-white/40 text-xs uppercase tracking-widest mb-2">Saved Locations</p>
+                {savedLocations.map((loc, i) => (
+                  <div key={i} className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-purple-300 text-sm font-medium">{loc.state}</span>
+                    <span className="text-white/30">—</span>
+                    {loc.cities.map((c) => (
+                      <span key={c} className="chip text-xs">{c}</span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
-          <div className="flex gap-3">
-            <button onClick={addLocation} className="btn">Save Location</button>
-            <button className="btn">Add More</button>
-          </div>
-
-          {savedLocations.map((loc,i)=>(
-            <p key={i} className="text-white/50 mt-2">
-              • {loc.state} : {loc.cities.join(", ")}
-            </p>
-          ))}
-
         </Accordion>
       )}
 
-      <Toggle label="Cancellation Policy" value={form.cancellation}
-        onChange={(v)=>setForm({...form, cancellation:v})}/>
-      <Toggle label="Platform Commission Agreement" value={form.agreement}
-        onChange={(v)=>setForm({...form, agreement:v})}/>
+      <Toggle label="Cancellation Policy" value={form.cancellation} onChange={(v) => setForm({ ...form, cancellation: v })} />
+      <Toggle label="Platform Commission Agreement" value={form.agreement} onChange={(v) => setForm({ ...form, agreement: v })} />
 
       {/* BANK */}
       <Accordion title="Bank Information">
         <div className="space-y-4">
           <input className="input" placeholder="Account Number" />
-          <div className="upload-box">
-            Tap to upload passbook
-          </div>
+          {!passbookFile ? (
+            <div
+              onClick={() => passbookRef.current.click()}
+              className="border border-dashed border-white/20 rounded-xl p-6 text-center bg-white/5 cursor-pointer hover:border-purple-400/40 hover:bg-white/[0.04] transition"
+            >
+              <UploadCloud size={24} className="mx-auto text-white/30 mb-2" />
+              <p className="text-white/60 text-sm">Click to upload passbook</p>
+              <p className="text-white/30 text-xs mt-1">PDF, JPG, PNG (Max 5MB)</p>
+              <input
+                ref={passbookRef}
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png"
+                className="hidden"
+                onChange={(e) => e.target.files[0] && setPassbookFile(e.target.files[0])}
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-between p-3 rounded-xl bg-purple-500/10 border border-purple-400/20">
+              <div className="flex items-center gap-3">
+                <FileText size={18} className="text-purple-300" />
+                <div>
+                  <p className="text-white text-sm truncate max-w-[200px]">{passbookFile.name}</p>
+                  <p className="text-white/40 text-xs">{(passbookFile.size / 1024).toFixed(1)} KB</p>
+                </div>
+              </div>
+              <button onClick={() => setPassbookFile(null)} className="text-white/40 hover:text-white">
+                <X size={16} />
+              </button>
+            </div>
+          )}
           <input className="input" placeholder="UPI ID" />
           <input className="input" placeholder="Bank Name" />
           <input className="input" placeholder="Branch Name" />
@@ -284,13 +397,12 @@ export default function Step5Services() {
   );
 }
 
-/* ===== TOGGLE ===== */
 const Toggle = ({ label, value, onChange }) => (
   <div className="flex justify-between items-center">
     <span className="text-white/70">{label}</span>
     <div
-      onClick={()=>onChange(!value)}
-      className={`w-12 h-6 rounded-full ${value ? "bg-green-500":"bg-gray-500"} cursor-pointer`}
+      onClick={() => onChange(!value)}
+      className={`w-12 h-6 rounded-full ${value ? "bg-green-500" : "bg-gray-500"} cursor-pointer`}
     >
       <div className={`toggle-dot ${value && "on"}`} />
     </div>

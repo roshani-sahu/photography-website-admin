@@ -19,7 +19,7 @@ export default function Stepper({ step, steps }) {
             {i < steps.length - 1 && (
               <div className={`
                 flex-1 h-[2px]
-                ${done ? "bg-primary" : "bg-white/20"}
+                ${done ? "bg-gray-300" : "bg-gray-800"}
               `}/>
             )}
           </div>

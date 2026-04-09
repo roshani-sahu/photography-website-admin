@@ -1,4 +1,5 @@
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
 import Header from '../components/landingpagecomp/Header'
 import HeroSection from '../components/landingpagecomp/HeroSection'
 import Service from '../components/landingpagecomp/Service'
@@ -11,6 +12,7 @@ function LandingPage() {
   return (
     <div>
       <Header />
+      <Toaster position="top-right" toastOptions={{ style: { background: '#1c1530', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
       <HeroSection id="home" />
       <div id="services"><Service /></div>
       <div id="how-it-works"><HowItWorks /></div>

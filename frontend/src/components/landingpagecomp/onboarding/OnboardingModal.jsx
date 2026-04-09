@@ -1,5 +1,5 @@
 // OnboardingModal.jsx
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Stepper from "./Stepper";
 import ProgressBar from "./ProgressBar";
 
@@ -19,17 +19,28 @@ const steps = [
 
 export default function OnboardingModal({ onClose }) {
   const [step, setStep] = useState(1);
+  const [error, setError] = useState("");
+  const validateRef = useRef(null);
 
-  const next = () => setStep((s) => Math.min(s + 1, 5));
-  const prev = () => setStep((s) => Math.max(s - 1, 1));
+  const next = () => {
+    if (validateRef.current) {
+      const err = validateRef.current();
+      if (err) { setError(err); return; }
+    }
+    setError("");
+    setStep((s) => Math.min(s + 1, 5));
+  };
+
+  const prev = () => { setError(""); setStep((s) => Math.max(s - 1, 1)); };
 
   const renderStep = () => {
+    const props = { registerValidate: (fn) => { validateRef.current = fn; } };
     switch (step) {
-      case 1: return <Step1 />;
-      case 2: return <Step2 />;
-      case 3: return <Step3 />;
-      case 4: return <Step4 />;
-      case 5: return <Step5 />;
+      case 1: return <Step1 {...props} />;
+      case 2: return <Step2 {...props} />;
+      case 3: return <Step3 {...props} />;
+      case 4: return <Step4 {...props} />;
+      case 5: return <Step5 {...props} />;
     }
   };
 
@@ -61,6 +72,10 @@ export default function OnboardingModal({ onClose }) {
           {renderStep()}
         </div>
 
+        {error && (
+          <p className="text-red-400 text-sm mt-3 text-center">{error}</p>
+        )}
+
         {/* Footer buttons */}
         <div className="flex justify-between mt-6">
           <button
@@ -80,7 +95,7 @@ export default function OnboardingModal({ onClose }) {
 
         <p className="text-center text-xs text-white/40 mt-6">
           Need help? Contact support at{" "}
-          <span className="text-primary">support@example.com</span>
+          <span className="text-white">support@example.com</span>
         </p>
 
       </div>
