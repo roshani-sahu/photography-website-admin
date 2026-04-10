@@ -19,25 +19,25 @@ const services = [
     title: "Professional DJ Services",
     desc: "Professional Photo and video Coverage",
     icon: <Mic2 size={20} />,
-    img: "/hero.png",
+    img: "/dj.jpg",
   },
   {
     title: "Live Wedding Painter",
     desc: "Professional Photo and video Coverage",
     icon: <Heart size={20} />,
-    img: "/Wedding.png",
+    img: "/Wedding.jpg",
   },
   {
     title: "Professional Anchor Services",
     desc: "Professional Photo and video Coverage",
     icon: <User size={20} />,
-    img: "/Anchor.png",
+    img: "/Anchor.jpg",
   },
   {
     title: "Professional Magician Services",
     desc: "Professional Photo and video Coverage",
     icon: <Sparkles size={20} />,
-    img: "/Magician.png",
+    img: "/Magician.jpg",
   },
 ];
 
