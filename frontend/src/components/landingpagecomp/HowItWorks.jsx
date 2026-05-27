@@ -77,7 +77,7 @@ const HowItWorks = () => {
           {steps.map((step, i) => (
            <motion.div
   key={i}
-  variants={itemVariants}
+  // variants={itemVariants}
   whileHover={{ y: -6 }}
   className={`
     relative z-10 group

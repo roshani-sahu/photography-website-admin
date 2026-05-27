@@ -13,7 +13,7 @@ const HeroSection = () => {
       {/* RIGHT IMAGE GLOW */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full" />
 
-      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 grid  gap-12 items-center">
         
         {/* LEFT CONTENT */}
         <div>
@@ -34,13 +34,13 @@ const HeroSection = () => {
             className="text-5xl md:text-8xl font-extrabold leading-[1.05]"
           >
             <span className="bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent">
-              Discover
+              Discover Artists for
             </span>{" "}
             <br />
-            <span className="bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent">
-              Artists for
-            </span>{" "}
-            <br />
+            {/* <span className="bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent">
+              
+            </span>{" "} */}
+            
             <span className="bg-gradient-to-b from-white to-purple-300 bg-clip-text text-transparent">
               Every Moment
             </span>
@@ -96,14 +96,14 @@ const HeroSection = () => {
           transition={{ duration: 0.5 }}
           className="relative"
         >
-          <img
+          {/* <img
             src="/hero.png"
             alt="DJ"
             className="rounded-2xl w-full object-cover relative z-10"
-          />
+          /> */}
 
           {/* TESTIMONIAL */}
-          <div className="absolute bottom-8 left-8 z-20 
+          {/* <div className="absolute bottom-8 left-8 z-20 
             bg-[#1a0933]/70 backdrop-blur-xl 
             border border-white/10 
             p-5 rounded-xl max-w-xs shadow-xl">
@@ -115,7 +115,7 @@ const HeroSection = () => {
             <span className="text-white/40 text-xs block mt-3">
               — MARCO R. / EVENT CURATOR
             </span>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>

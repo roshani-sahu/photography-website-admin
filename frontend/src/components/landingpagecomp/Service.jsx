@@ -7,37 +7,37 @@ const services = [
     title: "Photography & Videography",
     desc: "Professional Photo and video Coverage",
     icon: <Camera size={20} />,
-    img: "/Photo.jpeg",
+    img: "/new/Photo.png",
   },
   {
     title: "Music & Live Performance",
     desc: "Professional Photo and video Coverage",
     icon: <Music size={20} />,
-    img: "/DJ.jpeg",
+    img: "/new/music.png",
   },
   {
     title: "Professional DJ Services",
     desc: "Professional Photo and video Coverage",
     icon: <Mic2 size={20} />,
-    img: "/dj.jpg",
+    img: "/new/DJ.png",
   },
   {
     title: "Live Wedding Painter",
     desc: "Professional Photo and video Coverage",
     icon: <Heart size={20} />,
-    img: "/Wedding.jpg",
+    img: "/new/Wedding.png",
   },
   {
     title: "Professional Anchor Services",
     desc: "Professional Photo and video Coverage",
     icon: <User size={20} />,
-    img: "/Anchor.jpg",
+    img: "/new/Anchor.png",
   },
   {
     title: "Professional Magician Services",
     desc: "Professional Photo and video Coverage",
     icon: <Sparkles size={20} />,
-    img: "/Magician.jpg",
+    img: "/new/Magician.png",
   },
 ];
 
@@ -47,7 +47,7 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
@@ -82,7 +82,7 @@ const Service = () => {
         {/* GRID */}
         <motion.div
           ref={ref}
-          variants={containerVariants}
+          // variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           className="grid md:grid-cols-3 gap-8"
@@ -90,7 +90,7 @@ const Service = () => {
           {services.map((service, i) => (
             <motion.div
               key={i}
-              variants={cardVariants}
+              // variants={cardVariants}
               whileHover={{ y: -6 }}
               className="
                 group

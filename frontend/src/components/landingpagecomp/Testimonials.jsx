@@ -4,22 +4,22 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Elena Vance",
-    role: "ART DIRECTOR",
-    text: "Found the perfect quartet for my gallery opening. The booking process was so smooth it felt like magic.",
+    name: "Varun Sood",
+    role: "Professional Photographer",
+    text: "Working with ClickNow has been a smooth experience. The bookings are well-structured, and client requirements are shared clearly in advance. It saves time and avoids confusion during shoots. I get to focus fully on photography while the coordination is handled properly by the platform team.",
     img: "/testimonial.jpg",
   },
   {
-    name: "Marcus Thorne",
-    role: "PROFESSIONAL DJ",
-    text: "ClickNow transformed my side hustle into a full-time career. The quality of clients here is unmatched.",
+    name: "Ananya Roy",
+    role: "Musician (Live Performer)",
+    text: "ClickNow has helped me get consistent live performance opportunities for private events and small weddings. The communication is clear and payment coordination is reliable. The audiences are well-managed, and the event details are usually shared properly before the performance. Good platform for independent musicians.",
     img: "/testimonial2.jpg",
   },
   {
-    name: "Sofia Ricci",
-    role: "EVENT PLANNER",
-    text: "The only platform that understands the intersection of high art and modern digital convenience.",
-    img: "/testimonial1.jpg",
+    name: " Rakesh Bhatia ",
+    role: "Live Wedding Painter",
+    text: "As a live wedding painter, ClickNow has given me quality bookings where clients actually value live art. The team ensures the event setup details are shared in advance, which helps me prepare properly. The experience has been professional and supportive so far.",
+    img: "/test3.jpg",
   },
 ];
 
@@ -69,7 +69,7 @@ const Testimonials = () => {
           {testimonials.map((item, i) => (
             <motion.div
               key={i}
-              variants={itemVariants}
+              // variants={itemVariants}
               whileHover={{ y: -6 }}
               className={`
                 relative group
