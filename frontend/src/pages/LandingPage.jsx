@@ -13,7 +13,7 @@ function LandingPage() {
     <div>
       <Header />
       <Toaster position="top-right" toastOptions={{ style: { background: '#1c1530', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
-      <HeroSection id="home" />
+      <div id="home"><HeroSection /></div>
       <div id="services"><Service /></div>
       <div id="how-it-works"><HowItWorks /></div>
       <div id="professionals"><ForVisionaries /></div>

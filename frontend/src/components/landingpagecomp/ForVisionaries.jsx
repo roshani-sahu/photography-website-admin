@@ -1,11 +1,9 @@
 import { CheckCircle, Star, CreditCard, Image, Wallet, TrendingUp } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import OnboardingModal from "./onboarding/OnboardingModal";
 
 const ForVisionaries = () => {
-const Navigate = useNavigate();
-      const [openModal, setOpenModal] = useState(false);
+const [openModal, setOpenModal] = useState(false);
   return (
     <section className="bg-[#100528] py-28 px-6 relative overflow-hidden">
 
@@ -150,7 +148,7 @@ const Navigate = useNavigate();
             {/* BUTTON */}
             <button 
             //  onClick={() => setOpenModal(true)}
-              onClick={() => Navigate('#home')}
+              onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
              className="
               mt-10 w-full py-3 rounded-xl
               bg-purple-400/20
