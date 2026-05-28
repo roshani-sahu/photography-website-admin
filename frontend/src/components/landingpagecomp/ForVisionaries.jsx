@@ -18,13 +18,14 @@ const [openModal, setOpenModal] = useState(false);
           <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
             <span className="text-white">For the </span>
             <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-              Visionaries
+              For Event Hosts
+
             </span>
           </h2>
 
           {/* Subtext */}
           <p className="text-white/60 mt-4 mb-10">
-            Exceptional events require exceptional partners.
+Whether it’s a wedding, private party, corporate gathering, or celebration — ClickNow helps you connect with trusted professionals without the stress.
           </p>
 
           {/* LIST */}
@@ -40,7 +41,7 @@ const [openModal, setOpenModal] = useState(false);
                   Verified Professionals
                 </h4>
                 <p className="text-white/50 text-base mt-1">
-                  Every artist undergoes a rigorous vetting process for talent and reliability.
+Every professional is reviewed for quality, reliability, professionalism, and event experience.
                 </p>
               </div>
             </div>
@@ -51,10 +52,10 @@ const [openModal, setOpenModal] = useState(false);
               </div>
               <div>
                 <h4 className="text-white text-xl font-semibold">
-                  Real Reviews
+Genuine Client Reviews
                 </h4>
                 <p className="text-white/50 text-base mt-1">
-                  Authentic feedback from our community ensures zero surprises on event day.
+Read authentic experiences and ratings from real clients before confirming your booking.
                 </p>
               </div>
             </div>
@@ -65,10 +66,10 @@ const [openModal, setOpenModal] = useState(false);
               </div>
               <div>
                 <h4 className="text-white text-xl font-semibold">
-                  Seamless Booking
+Secure & Hassle-Free Booking
                 </h4>
                 <p className="text-white/50 text-base mt-1">
-                  One-click scheduling and secure payments through our encrypted gateway.
+Book confidently with transparent communication, secure payments, and dedicated support.
                 </p>
               </div>
             </div>
@@ -90,13 +91,12 @@ const [openModal, setOpenModal] = useState(false);
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
               <span className="text-white">For the </span>
               <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                Superstars
-              </span>
+For Professionals & Artists              </span>
             </h2>
 
             {/* Subtext */}
             <p className="text-white/60 mt-4 mb-10">
-              Your craft deserves a stage that matches your ambition.
+Grow your brand, showcase your talent, and connect with clients actively searching for event professionals.
             </p>
 
             {/* LIST */}
@@ -108,10 +108,10 @@ const [openModal, setOpenModal] = useState(false);
                 </div>
                 <div>
                   <h4 className="text-white font-semibold">
-                    Showcase Talent
+Build Your Professional Presence
                   </h4>
                   <p className="text-white/50 text-base mt-1">
-                    Upload cinematic reels and high-res galleries to attract high-end clientele.
+Showcase portfolios, reels, galleries to attract quality clients.
                   </p>
                 </div>
               </div>
@@ -122,10 +122,10 @@ const [openModal, setOpenModal] = useState(false);
                 </div>
                 <div>
                   <h4 className="text-white font-semibold">
-                    Get Booked
+Receive More Booking Opportunities
                   </h4>
                   <p className="text-white/50 text-base mt-1">
-                    Set your rates, manage your calendar, and get paid instantly on completion.
+Get connected with clients looking for photographers, musicians, live artists, DJs, and entertainers for their events.
                   </p>
                 </div>
               </div>
@@ -136,10 +136,10 @@ const [openModal, setOpenModal] = useState(false);
                 </div>
                 <div>
                   <h4 className="text-white font-semibold">
-                    Grow Audience
+Grow Your Brand
                   </h4>
                   <p className="text-white/50 text-base mt-1">
-                    Benefit from our platform’s marketing reach and premium branding.
+Expand your reach, build credibility, collect reviews, and grow your event business with ClickNow.
                   </p>
                 </div>
               </div>

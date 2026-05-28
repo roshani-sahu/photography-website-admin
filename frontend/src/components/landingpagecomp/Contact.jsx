@@ -1,7 +1,35 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Contact() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const form = e.target;
+    try {
+      await fetch("https://formsubmit.co/ajax/support@clicknow.co.in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          subject: form.subject.value,
+          message: form.message.value,
+        }),
+      });
+      toast.success("Message sent successfully!");
+      form.reset();
+    } catch {
+      toast.error("Failed to send. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="min-h-screen bg-[#0b0120] text-white px-6 py-24">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
@@ -116,7 +144,9 @@ export default function Contact() {
         </div>
 
         {/* FORM */}
+        <Toaster position="top-right" toastOptions={{ style: { background: '#1c1530', color: '#fff', border: '1px solid rgba(255,255,255,0.1)' } }} />
         <motion.form
+          onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -134,29 +164,37 @@ export default function Contact() {
           </div>
 
           <input
+            name="name"
+            required
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-all"
             placeholder="Your Name"
           />
 
           <input
             type="email"
+            name="email"
+            required
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-all"
             placeholder="Email Address"
           />
 
           <input
+            name="subject"
+            required
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-purple-500 transition-all"
             placeholder="Subject"
           />
 
           <textarea
+            name="message"
             rows={5}
+            required
             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none resize-none focus:border-purple-500 transition-all"
             placeholder="Your Message"
           />
 
-          <button className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition-all text-white font-medium">
-            Send Message
+          <button disabled={loading} className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition-all text-white font-medium disabled:opacity-60">
+            {loading ? "Sending..." : "Send Message"}
           </button>
 
           <p className="text-xs text-white/40 text-center leading-6">

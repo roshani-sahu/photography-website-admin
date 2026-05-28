@@ -64,7 +64,7 @@ const Header = () => {
         <div className="flex items-center gap-3">
 
           {/* CTA BUTTON */}
-          <motion.button
+          {/* <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             className="
@@ -83,7 +83,7 @@ const Header = () => {
             "
           >
             Book Now
-          </motion.button>
+          </motion.button> */}
 
           {/* MOBILE MENU BUTTON */}
           <button
@@ -135,7 +135,7 @@ const Header = () => {
               ))}
 
               {/* MOBILE CTA */}
-              <button
+              {/* <button
                 className="
                   mt-4
                   w-full
@@ -152,7 +152,7 @@ const Header = () => {
                 "
               >
                 Book Now
-              </button>
+              </button> */}
             </div>
           </motion.div>
         )}

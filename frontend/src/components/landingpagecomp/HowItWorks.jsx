@@ -4,18 +4,18 @@ import { useRef } from "react";
 const steps = [
   {
     id: "1",
-    title: "Browse",
-    desc: "Explore thousands of verified portfolios and read real client reviews.",
+    title: "Submit Your Requirements",
+    desc: "Share your event details, preferred services, location, and schedule through a quick booking request.",
   },
   {
     id: "2",
-    title: "Book",
-    desc: "Secure your date with instant booking and transparent pricing structures.",
+    title: "Get Matched",
+    desc: "Our team carefully selects the best-fit verified professionals based on your event requirements and preferences.",
   },
   {
     id: "3",
-    title: "Manage",
-    desc: "Coordinate with your artist through our integrated workspace.",
+    title: "Confirm & Manage",
+    desc: "Finalize your booking, coordinate event details, and manage everything seamlessly through ClickNow.",
   },
 ];
 
@@ -54,11 +54,11 @@ const HowItWorks = () => {
           <h2 className="text-4xl md:text-5xl font-semibold 
             bg-gradient-to-b from-white to-purple-200 
             bg-clip-text text-transparent">
-            Seamless Connection
+            Book Your Event in 3 Simple Steps
           </h2>
 
           <p className="text-white/60 mt-4">
-            Three simple steps to elevate your next gathering.
+Tell us what you need, and our team will match you with the most suitable verified professionals for your event.
           </p>
         </motion.div>
 

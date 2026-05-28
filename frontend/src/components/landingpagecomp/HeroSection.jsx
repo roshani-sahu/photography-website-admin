@@ -23,7 +23,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             className="inline-block px-4 py-1 rounded-full bg-purple-500/10 border border-purple-400/20 text-purple-300 text-xs tracking-wider mb-6"
           >
-            THE EDITORIAL TALENT NETWORK
+            TRUSTED EVENT TALENT PLATFORM
           </motion.div>
 
           {/* HEADING (GRADIENT TEXT) */}
@@ -31,18 +31,18 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-8xl font-extrabold leading-[1.05]"
+            className=" font-extrabold leading-[1.05]"
           >
-            <span className="bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent">
-              Discover Artists for
+            <span className="bg-gradient-to-b text-5xl md:text-8xl from-white to-purple-200 bg-clip-text text-transparent">
+              India’s Premium  
             </span>{" "}
             <br />
             {/* <span className="bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent">
               
             </span>{" "} */}
             
-            <span className="bg-gradient-to-b from-white to-purple-300 bg-clip-text text-transparent">
-              Every Moment
+            <span className="bg-gradient-to-b text-5xl md:text-7xl from-white to-purple-300 bg-clip-text text-transparent">
+              Marketplace for Event Talent
             </span>
           </motion.h1>
 
@@ -53,9 +53,8 @@ const HeroSection = () => {
             transition={{ delay: 0.2 }}
             className="text-white/60 mt-6 max-w-lg text-[15px] leading-relaxed"
           >
-            Elevate your event with our curated roster of verified musicians,
-            master photographers, and visionary performers. Luxury services at
-            your fingertips.
+            Hire verified photographers, musicians, DJs, live artists, and entertainers — all in one seamless platform designed for unforgettable events. Luxury Services at your fingertips.
+
           </motion.p>
 
           {/* BUTTONS */}
@@ -77,15 +76,28 @@ const HeroSection = () => {
             </a>
 
             {/* GOOGLE PLAY */}
-            <a href="#" className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-purple-400/30 hover:bg-white/[0.08] transition">
-              <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current text-white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.18 23.76c.3.17.64.22.99.14l12.12-6.99-2.56-2.56-10.55 9.41zm-1.1-20.7C2.03 3.22 2 3.4 2 3.6v16.8c0 .2.03.38.08.54l.06.06 9.41-9.41v-.22L2.14 2.99l-.06.07zm18.44 8.7l-2.59-1.5-2.88 2.88 2.88 2.88 2.61-1.51c.74-.43.74-1.32-.02-1.75zm-17.34 9.6l10.55-9.41-2.56-2.56L2.08 20.96l1.1.4z"/>
-              </svg>
-              <div className="text-left">
-                <p className="text-white/40 text-[10px] leading-none">Get it on</p>
-                <p className="text-white font-semibold text-sm leading-tight mt-0.5">Google Play</p>
-              </div>
-            </a>
+           <a
+  href="https://play.google.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-purple-400/30 hover:bg-white/[0.08] transition"
+>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg"
+    alt="Google Play"
+    className="w-7 h-7"
+  />
+
+  <div className="text-left">
+    <p className="text-white/40 text-[10px] leading-none">
+      GET IT ON
+    </p>
+
+    <p className="text-white font-semibold text-sm leading-tight mt-0.5">
+      Google Play
+    </p>
+  </div>
+</a>
           </motion.div>
         </div>
 
