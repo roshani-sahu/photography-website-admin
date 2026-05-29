@@ -16,9 +16,9 @@ const [openModal, setOpenModal] = useState(false);
         <div>
           {/* Heading */}
           <h2 className="text-4xl md:text-5xl font-semibold leading-tight">
-            <span className="text-white">For the </span>
+            <span className="text-white">For </span>
             <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-              For Event Hosts
+             Event Hosts
 
             </span>
           </h2>
@@ -89,9 +89,9 @@ Book confidently with transparent communication, secure payments, and dedicated 
 
             {/* Heading */}
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
-              <span className="text-white">For the </span>
+              <span className="text-white">For </span>
               <span className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-For Professionals & Artists              </span>
+ Professionals & Artists              </span>
             </h2>
 
             {/* Subtext */}
