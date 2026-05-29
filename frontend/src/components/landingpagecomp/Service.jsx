@@ -112,14 +112,14 @@ const Service = () => {
               </div>
 
               {/* TITLE */}
-              <h3 className="text-white text-xl font-semibold my-2">
+              <h3 className="text-white text-xl font-semibold my-4">
                 {service.title}
               </h3>
 
               {/* DESC */}
-              <p className="text-white/50 text-sm leading-relaxed mb-6">
+              {/* <p className="text-white/50 text-sm leading-relaxed mb-6">
                 {service.desc}
-              </p>
+              </p> */}
 
               {/* IMAGE */}
               <div className="relative rounded-xl overflow-hidden">

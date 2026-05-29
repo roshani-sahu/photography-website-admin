@@ -82,8 +82,8 @@ const Testimonials = () => {
                 hover:shadow-[0_0_60px_rgba(168,85,247,0.12)]
 
                 ${i === 1 
-                  ? "-translate-y-6 scale-105" 
-                  : "translate-y-6"
+                  ? "md:-translate-y-6 scale-105" 
+                  : "md:translate-y-6"
                 }
               `}
             >
